@@ -1,20 +1,50 @@
-function findCollege(){
+function searchCollege(){
 
-    let name = document.getElementById("collegeInput").value.toLowerCase();
+    let name = document.getElementById("collegeInput").value;
+
     let result = document.getElementById("result");
 
-    let colleges = {
-        "anna university": "Anna University, Guindy, Chennai, Tamil Nadu",
-        "iit madras": "IIT Madras, Adyar, Chennai, Tamil Nadu",
-        "psg college": "PSG College of Technology, Coimbatore, Tamil Nadu",
-        "vit vellore": "VIT University, Katpadi, Vellore, Tamil Nadu",
-        "nit trichy": "National Institute of Technology, Tiruchirappalli, Tamil Nadu"
-    };
-
-    if(colleges[name]){
-        result.innerHTML = "Address: " + colleges[name];
-    }else{
-        result.innerHTML = "College not found in database.";
+    if(name === ""){
+        result.innerHTML = "Please enter a college name.";
+        return;
     }
+
+    result.innerHTML = "Searching...";
+
+    fetch("http://universities.hipolabs.com/search?name=" + name)
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        if(data.length === 0){
+            result.innerHTML = "No colleges found.";
+            return;
+        }
+
+        let output = "";
+
+        data.slice(0,5).forEach(college => {
+
+            output += `
+            <p>
+            <b>${college.name}</b><br>
+            Country: ${college.country}<br>
+            Website: <a href="${college.web_pages[0]}" target="_blank">${college.web_pages[0]}</a>
+            </p>
+            <hr>
+            `;
+
+        });
+
+        result.innerHTML = output;
+
+    })
+
+    .catch(error => {
+
+        result.innerHTML = "Error fetching college data.";
+
+    });
 
 }
