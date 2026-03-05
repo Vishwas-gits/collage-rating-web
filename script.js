@@ -4,23 +4,62 @@ function searchCollege() {
     const result = document.getElementById("result");
 
     const colleges = {
-        "psg college": "PSG College of Technology, Avinashi Road, Coimbatore, Tamil Nadu",
-        "anna university": "Anna University, Guindy, Chennai, Tamil Nadu",
-        "vit vellore": "VIT University, Katpadi, Vellore, Tamil Nadu",
-        "nit trichy": "National Institute of Technology, Tiruchirappalli, Tamil Nadu",
-        "srm university": "SRM Institute of Science and Technology, Kattankulathur, Chennai",
-        "amrita university": "Amrita Vishwa Vidyapeetham, Ettimadai, Coimbatore",
-        "sastra university": "SASTRA University, Thanjavur, Tamil Nadu",
-        "thiagarajar college": "Thiagarajar College of Engineering, Madurai",
-        "coimbatore institute of technology": "Coimbatore Institute of Technology, Coimbatore",
-        "kumaraguru college": "Kumaraguru College of Technology, Coimbatore",
-        "kongu engineering college": "Kongu Engineering College, Perundurai, Erode",
-        "karunya university": "Karunya Institute of Technology and Sciences, Coimbatore",
-        "sona college": "Sona College of Technology, Salem",
-        "velammal engineering college": "Velammal Engineering College, Chennai",
-        "saveetha university": "Saveetha Institute of Medical and Technical Sciences, Chennai",
-        "nandha college": "Nandha Engineering College, Erode, Tamil Nadu",
-        "nandha arts college": "Nandha Arts and Science College, Erode, Tamil Nadu"
+
+        "psg college": {
+            address: "PSG College of Technology, Coimbatore, Tamil Nadu",
+            rating: "⭐⭐⭐⭐⭐ (5/5)"
+        },
+
+        "anna university": {
+            address: "Anna University, Guindy, Chennai, Tamil Nadu",
+            rating: "⭐⭐⭐⭐⭐ (5/5)"
+        },
+
+        "vit vellore": {
+            address: "VIT University, Katpadi, Vellore, Tamil Nadu",
+            rating: "⭐⭐⭐⭐☆ (4.5/5)"
+        },
+
+        "nit trichy": {
+            address: "National Institute of Technology, Tiruchirappalli, Tamil Nadu",
+            rating: "⭐⭐⭐⭐⭐ (5/5)"
+        },
+
+        "srm university": {
+            address: "SRM Institute of Science and Technology, Chennai",
+            rating: "⭐⭐⭐⭐☆ (4/5)"
+        },
+
+        "kongu engineering college": {
+            address: "Kongu Engineering College, Perundurai, Erode",
+            rating: "⭐⭐⭐⭐☆ (4/5)"
+        },
+
+        "kumaraguru college": {
+            address: "Kumaraguru College of Technology, Coimbatore",
+            rating: "⭐⭐⭐⭐☆ (4/5)"
+        },
+
+        "karunya university": {
+            address: "Karunya Institute of Technology and Sciences, Coimbatore",
+            rating: "⭐⭐⭐⭐☆ (4/5)"
+        },
+
+        "sona college": {
+            address: "Sona College of Technology, Salem",
+            rating: "⭐⭐⭐⭐☆ (4/5)"
+        },
+
+        "nandha college": {
+            address: "Nandha Engineering College, Erode",
+            rating: "⭐⭐⭐⭐☆ (4/5)"
+        },
+
+        "nandha arts college": {
+            address: "Nandha Arts and Science College, Erode",
+            rating: "⭐⭐⭐☆☆ (3/5)"
+        }
+
     };
 
     let found = false;
@@ -28,7 +67,13 @@ function searchCollege() {
     for (let college in colleges) {
 
         if (input.includes(college)) {
-            result.innerHTML = "<b>Address:</b> " + colleges[college];
+
+            result.innerHTML = `
+            <b>College:</b> ${college.toUpperCase()} <br>
+            <b>Address:</b> ${colleges[college].address} <br>
+            <b>Rating:</b> ${colleges[college].rating}
+            `;
+
             found = true;
             break;
         }
