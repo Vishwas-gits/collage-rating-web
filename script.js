@@ -11,7 +11,7 @@ function searchCollege(){
 
     result.innerHTML = "Searching...";
 
-    fetch("http://universities.hipolabs.com/search?name=" + name)
+    fetch("https://universities.hipolabs.com/search?name=" + name)
 
     .then(response => response.json())
 
@@ -48,3 +48,4 @@ function searchCollege(){
     });
 
 }
+
