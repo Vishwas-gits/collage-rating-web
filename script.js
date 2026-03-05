@@ -1,51 +1,48 @@
-function searchCollege(){
+function searchCollege() {
 
-    let name = document.getElementById("collegeInput").value;
+    const name = document.getElementById("collegeInput").value.trim();
+    const result = document.getElementById("result");
 
-    let result = document.getElementById("result");
-
-    if(name === ""){
+    if (name === "") {
         result.innerHTML = "Please enter a college name.";
         return;
     }
 
     result.innerHTML = "Searching...";
 
-    fetch("https://universities.hipolabs.com/search?name=" + name)
+    fetch(`https://universities.hipolabs.com/search?name=${encodeURIComponent(name)}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response failed");
+            }
+            return response.json();
+        })
+        .then(data => {
 
-    .then(response => response.json())
+            if (data.length === 0) {
+                result.innerHTML = "No colleges found.";
+                return;
+            }
 
-    .then(data => {
+            let output = "";
 
-        if(data.length === 0){
-            result.innerHTML = "No colleges found.";
-            return;
-        }
+            data.slice(0,5).forEach(college => {
 
-        let output = "";
+                output += `
+                <div style="margin-top:10px;">
+                    <strong>${college.name}</strong><br>
+                    Country: ${college.country}<br>
+                    Website: <a href="${college.web_pages[0]}" target="_blank">
+                    ${college.web_pages[0]}</a>
+                </div>
+                <hr>
+                `;
+            });
 
-        data.slice(0,5).forEach(college => {
-
-            output += `
-            <p>
-            <b>${college.name}</b><br>
-            Country: ${college.country}<br>
-            Website: <a href="${college.web_pages[0]}" target="_blank">${college.web_pages[0]}</a>
-            </p>
-            <hr>
-            `;
-
+            result.innerHTML = output;
+        })
+        .catch(error => {
+            console.error(error);
+            result.innerHTML = "Unable to fetch college data. Try again later.";
         });
-
-        result.innerHTML = output;
-
-    })
-
-    .catch(error => {
-
-        result.innerHTML = "Error fetching college data.";
-
-    });
-
 }
-
